@@ -78,6 +78,7 @@ object InteractionGraphNegativeJob extends ScioBeamJob[InteractionGraphNegativeO
         readSnapshot(FlockReportAsSpamEdgesScalaDataset, sc),
         FeatureName.NumReportAsSpams,
         endTs)
+      .filter(_.age < accountLevelShadowbanMaxTime)
 
     // we only keep unfollows in the past X days due to the huge size of this dataset,
     // and to prevent permanent "shadow-banning" in the event of accidental unfollows.
